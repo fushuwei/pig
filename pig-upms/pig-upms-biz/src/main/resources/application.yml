@@ -3,17 +3,19 @@ server:
 
 spring:
   application:
-    name: @artifactId@
+    name: pig-upms-biz
   cloud:
     nacos:
-      username: @nacos.username@
-      password: @nacos.password@
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
       discovery:
         server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   config:
     import:
-      - nacos:application-@profiles.active@.yml
-      - nacos:${spring.application.name}-@profiles.active@.yml
+      - optional:nacos:application-${spring.profiles.active}.yml
+      - optional:nacos:${spring.application.name}-${spring.profiles.active}.yml
 
