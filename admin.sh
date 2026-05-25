@@ -4,6 +4,6 @@ JAR="./pig-upms/pig-upms-biz/target/pig-upms-biz.jar"
 pkill -9 -f "$JAR"
 sleep 1
 set -a
-source ./bin/.env
+source ./.env
 set +a
 nohup java -jar "$JAR" &
